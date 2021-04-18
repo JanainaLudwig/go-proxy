@@ -3,14 +3,14 @@ package main
 import (
 	"context"
 	"fmt"
-	"golang-proxy/model"
+	post2 "golang-proxy/model/post"
 )
 
 func main()  {
 	bg := context.Background()
 	ctx := context.WithValue(bg, "auth_id", 1)
 
-	p := model.PostProxy{}
+	p := post2.NewPostRepository()
 
 	posts, err := p.GetAll(ctx)
 	fmt.Println("[All posts - USER 1]", posts, err)

@@ -1,23 +1,19 @@
 package post
 
-import (
-	"context"
-	"golang-proxy/db_mock"
-	"golang-proxy/domain"
-)
+import "context"
 
-type PostModel domain.Post
-
-func (p *PostModel) GetAll(ctx context.Context) ([]domain.Post, error) {
-	return db_mock.Posts, nil
+type Post struct {
+	Id int
+	AuthorId int
+	Title string
+	Content string
 }
 
-func (p *PostModel) GetById(ctx context.Context, id int) (*domain.Post, error) {
-	for _, val := range db_mock.Posts {
-		if val.Id == id {
-			return &val, nil
-		}
-	}
+type PostRepository interface {
+	GetAll(ctx context.Context) ([]Post, error)
+	GetById(ctx context.Context, id int) (*Post, error)
+}
 
-	return nil, nil
+func NewPostRepository() PostRepository {
+	return &PostProxy{}
 }

@@ -1,10 +1,6 @@
-package db_mock
+package post
 
-import (
-	"golang-proxy/domain"
-)
-
-var Posts []domain.Post = []domain.Post{
+var Posts []Post = []Post{
 	{
 		Id: 1,
 		AuthorId: 1,

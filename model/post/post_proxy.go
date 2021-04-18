@@ -1,24 +1,23 @@
-package model
+package post
 
 import (
 	"context"
-	"golang-proxy/domain"
-	"golang-proxy/model/post"
+	"golang-proxy/model"
 	"net/http"
 )
 
-type PostProxy domain.Post
+type PostProxy Post
 
-var r post.PostModel
+var r PostModel
 
-func (p *PostProxy) GetAll(ctx context.Context) ([]domain.Post, error) {
+func (p *PostProxy) GetAll(ctx context.Context) ([]Post, error) {
 	posts, err := r.GetAll(ctx)
 
 	if err != nil {
 		return nil, err
 	}
 
-	var filtered []domain.Post
+	var filtered []Post
 
 	for _, val := range posts {
 		if val.AuthorId == ctx.Value("auth_id") {
@@ -29,7 +28,7 @@ func (p *PostProxy) GetAll(ctx context.Context) ([]domain.Post, error) {
 	return filtered, err
 }
 
-func (p *PostProxy) GetById(ctx context.Context, id int) (*domain.Post, error) {
+func (p *PostProxy) GetById(ctx context.Context, id int) (*Post, error) {
 	post, err := r.GetById(ctx, id)
 
 	if err != nil {
@@ -37,7 +36,7 @@ func (p *PostProxy) GetById(ctx context.Context, id int) (*domain.Post, error) {
 	}
 
 	if post == nil {
-		return nil, ModelError{
+		return nil, model.ModelError{
 			Status:  http.StatusNotFound,
 			Message: "Post not found",
 		}
@@ -47,7 +46,7 @@ func (p *PostProxy) GetById(ctx context.Context, id int) (*domain.Post, error) {
 		return post, err
 	}
 
-	return nil, ModelError{
+	return nil, model.ModelError{
 		Status:  http.StatusForbidden,
 		Message: "Unauthorized access",
 	}
