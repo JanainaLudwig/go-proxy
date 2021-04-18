@@ -1,0 +1,1 @@
+Example on how to use Proxy design pattern in Go
