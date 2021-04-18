@@ -12,5 +12,4 @@ type Post struct {
 type PostRepository interface {
 	GetAll(ctx context.Context) ([]Post, error)
 	GetById(ctx context.Context, id int) (Post, error)
-	Delete(ctx context.Context, id int) (bool, error)
 }

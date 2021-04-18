@@ -53,9 +53,3 @@ func (p *PostProxy) GetById(ctx context.Context, id int) (*domain.Post, error) {
 	}
 }
 
-func (p *PostProxy) Delete(ctx context.Context, id int) (bool, error) {
-	return r.Delete(ctx, id)
-}
-
-
-

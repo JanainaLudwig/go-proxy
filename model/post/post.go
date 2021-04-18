@@ -21,10 +21,3 @@ func (p *PostModel) GetById(ctx context.Context, id int) (*domain.Post, error) {
 
 	return nil, nil
 }
-
-func (p *PostModel) Delete(ctx context.Context, id int) (bool, error) {
-	return false, nil
-}
-
-
-
